@@ -1,21 +1,13 @@
 import { expect as expectCDK, haveResource } from '@aws-cdk/assert';
 import * as cdk from '@aws-cdk/core';
-import * as Cdk from '../lib/cdk-stack';
+import { Network } from '../lib/network';
 
-test('SQS Queue Created', () => {
+test('Vpc Created', () => {
     const app = new cdk.App();
     // WHEN
-    const stack = new Cdk.CdkStack(app, 'MyTestStack');
+    const stack = new Network(app, 'MyTestStack');
     // THEN
-    expectCDK(stack).to(haveResource("AWS::SQS::Queue",{
-      VisibilityTimeout: 300
+    expectCDK(stack).to(haveResource("AWS::Vpc",{
+      cidr: '10.0.0.0/24'
     }));
-});
-
-test('SNS Topic Created', () => {
-  const app = new cdk.App();
-  // WHEN
-  const stack = new Cdk.CdkStack(app, 'MyTestStack');
-  // THEN
-  expectCDK(stack).to(haveResource("AWS::SNS::Topic"));
 });

@@ -5,30 +5,23 @@ import { Ecs } from  '../lib/ecs';
 import { JenkinsMaster } from  '../lib/jenkins-master';
 import { JenkinsWorker } from  '../lib/jenkins-worker';
 
-const stackName = 'Jenkins';
-const account = process.env.CDK_DEFAULT_ACCOUNT;
-const region = process.env.CDK_DEFAULT_REGION;
+const baseStackName = 'Jenkins';
 const serviceDiscoveryNamespace = 'jenkins';
 
 const app = new cdk.App();
-const network = new Network(app, stackName + 'Network');
-const ecsCluster = new Ecs(app, stackName + 'Init', {
+const network = new Network(app, `${baseStackName}Network`);
+const ecsCluster = new Ecs(app, `${baseStackName}Ecs`, {
   vpc: network.vpc,
   serviceDiscoveryNamespace: serviceDiscoveryNamespace
 });
 
-const jenkinsWorker = new JenkinsWorker(app, stackName + "Worker", {
+const jenkinsWorker = new JenkinsWorker(app, `${baseStackName}Worker`, {
   vpc: network.vpc,
-  ecsCluster: ecsCluster
 });
-new JenkinsMaster(app, stackName + 'JenkinsMaster', {
+new JenkinsMaster(app, `${baseStackName}Master`, {
   ecsCluster: ecsCluster,
   network: network,
   worker: jenkinsWorker,
-  env: {
-    account: account,
-    region: region,
-  }
 });
 
 

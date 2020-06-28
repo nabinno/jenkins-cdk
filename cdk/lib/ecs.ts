@@ -8,20 +8,20 @@ interface EcsProps extends cdk.StackProps {
 }
 
 export class Ecs extends cdk.Stack {
-  public readonly vpc: ec2.IVpc;
   public readonly cluster: ecs.ICluster;
 
   constructor(scope: cdk.App, id: string, props: EcsProps) {
     super(scope, id, props);
 
     const serviceDiscoveryNamespace = props.serviceDiscoveryNamespace;
-    this.vpc = props.vpc;
+    const vpc = props.vpc;
 
     /**
      * ECS Cluster
      */
-    this.cluster = new ecs.Cluster(this, "ECSCluster", {
-      vpc: this.vpc,
+    this.cluster = new ecs.Cluster(this, "EcsCluster", {
+      clusterName: 'jenkins',
+      vpc: vpc,
       defaultCloudMapNamespace: {
         name: serviceDiscoveryNamespace
       }

@@ -1,3 +1,4 @@
+import * as sd from '@aws-cdk/aws-servicediscovery';
 import * as ecs from '@aws-cdk/aws-ecs';
 import * as ec2 from '@aws-cdk/aws-ec2';
 import * as cdk from '@aws-cdk/core';
@@ -23,7 +24,8 @@ export class Ecs extends cdk.Stack {
       clusterName: 'jenkins',
       vpc: vpc,
       defaultCloudMapNamespace: {
-        name: serviceDiscoveryNamespace
+        name: serviceDiscoveryNamespace,
+        type: sd.NamespaceType.DNS_PRIVATE,
       }
     });
   }

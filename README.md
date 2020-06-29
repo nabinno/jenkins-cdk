@@ -15,7 +15,7 @@ Navigate to the cdk directory, and run:
 ```console
 $ (cd cdk && cdk synth)
 Successfully synthesized to jenkins-on-aws/cdk/cdk.out
-Supply a stack name (JenkinsNetwork, JenkinsECS, JenkinsWorker, JenkinsJenkinsMaster) to display its template.
+Supply a stack name (JenkinsNetwork, JenkinsECS, JenkinsWorker, JenkinsMaster) to display its template.
 ```
 
 ## Deploy

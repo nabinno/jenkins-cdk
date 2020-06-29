@@ -41,7 +41,7 @@ export class JenkinsMaster extends cdk.Stack {
       repositoryName: 'jenkins/master',
       directory: '../docker/master/'
     });
-    const image = ecs.ContainerImage.fromEcrRepository(asset.repository);
+    const image = ecs.ContainerImage.fromDockerImageAsset(asset);
 
     /**
      * Fargate
@@ -84,6 +84,8 @@ export class JenkinsMaster extends cdk.Stack {
       taskDefinition: taskDefinition,
       desiredCount: 1,
       enableECSManagedTags: true,
+      publicLoadBalancer: true,
+      assignPublicIp: true,
       cloudMapOptions: {
         name: "master",
         dnsRecordType: sd.DnsRecordType.A,

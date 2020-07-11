@@ -68,7 +68,7 @@ export class JenkinsMaster extends cdk.Stack {
     const taskDefinition = new ecs.FargateTaskDefinition(this, "JenkinsTaskDefinition", {
       family: 'jenkins',
       cpu: 512,
-      memoryLimitMiB: 2048,
+      memoryLimitMiB: 1024,
     });
     const container = taskDefinition.addContainer('master', {
       image: image,
